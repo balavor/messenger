@@ -1,4 +1,4 @@
-import uuid = require("uuid")
+import uuid = require('uuid')
 
 type User = {
     id: string
@@ -12,8 +12,8 @@ type Message = {
     text: string
     chatId: string
     authorId: string
-    messageViewedBy: string[]
-    type: "message" | "system"
+    viewedBy: string[]
+    type: 'message' | 'system'
     date: Date
 }
 
@@ -49,33 +49,46 @@ export class State {
         }
         this.users[id].isConnected = true
     }
+    disconnectUser(id: string) {
+        if (this.users[id] === undefined) return
+        this.users[id].isConnected = false
+    }
     createChat(userId: string, title: string) {
         const chatWithSameTitle = Object.keys(this.chats).find(key => this.chats[key].title === title)
-        if (chatWithSameTitle !== undefined) return "exists"
+        if (chatWithSameTitle !== undefined) return
         const chatId = uuid()
         this.chats[chatId] = {
             authorId: userId,
             id: chatId,
             title: title,
             users: [userId],
-            messageIds: []
+            messageIds: [],
         }
-        return "success"
+        return this.chats[chatId]
     }
-    joinedChat(userId: string, chatId: string) {
+    joinChat(userId: string, chatId: string) {
         this.chats[chatId].users.push(userId)
     }
-    messageSent(userId: string, chatId: string, text: string) {
+    handleNewMessage(userId: string, chatId: string, text: string) {
         const messageId = uuid()
         this.messages[messageId] = {
             authorId: userId,
             chatId: chatId,
             id: messageId,
             text,
-            messageViewedBy: [],
-            type: "message",
-            date: new Date()
+            viewedBy: [],
+            type: 'message',
+            date: new Date(),
         }
         this.chats[chatId].messageIds.push(messageId)
+        return this.messages[messageId]
+    }
+    handleMessageView(userId: string, messageId: string) {
+        const chatId = Object.keys(this.messages).find(key => this.chats[key].messageIds.includes(messageId))
+        if (!chatId) return
+        if (this.chats[chatId].users.includes(userId)) {
+            this.messages[messageId].viewedBy.push(userId)
+            return this.messages[messageId]
+        }
     }
 }

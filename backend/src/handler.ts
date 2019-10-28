@@ -15,14 +15,51 @@ export type Handler = {
 
 export function handler(state: State, emit: EmitEffect): Handler {
     return {
-        connectUser: (event) => {
-            emit("userConnected", {
-                name: state
+        connectUser: event => {
+            state.connectUser(event.userId, event.name)
+            emit('userConnected', {
+                name: event.name,
+                userId: event.userId,
             })
         },
-        chatCreated: (_event) => {},
-        joinedChat: (_event) => {},
-        messageSent: (_event) => {},
-        userViewedMessage: (_event) => {}
+        createChat: event => {
+            const chat = state.createChat(event.userId, event.title)
+            if (!chat) throw new Error('')
+            emit('newChatCreated', {
+                chatId: chat.id,
+                title: chat.title,
+                authorId: chat.authorId,
+                users: chat.users,
+            })
+        },
+        joinChat: event => {
+            state.joinChat(event.userId, event.chatId)
+            emit('userJoinedChat', {
+                chatId: event.chatId,
+                userId: event.userId,
+            })
+        },
+        messageSent: event => {
+            state.handleNewMessage(event.userId, event.chatId, event.text)
+            emit('newMessage', {
+                chatId: event.chatId,
+                userId: event.userId,
+                text: event.text,
+            })
+        },
+        userViewedMessage: event => {
+            const updatedMessage = state.handleMessageView(event.userId, event.messageId)
+            if (!updatedMessage) return
+            emit('updateMessageState', {
+                messageId: updatedMessage.id,
+                viewedBy: updatedMessage.viewedBy,
+            })
+        },
+        disonnectUser: event => {
+            state.disconnectUser(event.userId)
+            emit('userDisonnected', {
+                userId: event.userId,
+            })
+        },
     }
 }

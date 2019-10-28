@@ -1,19 +1,22 @@
 export type Events = {
     connectUser: { userId: string; name: string }
-    createChat: { userId: string; chatId: string }
+    createChat: { userId: string; title: string }
     joinChat: { userId: string; chatId: string }
     messageSent: { userId: string; chatId: string; text: string }
-    userViewedMessage: {userId: string, messageId: string }
-    disonnectUser: { userId: string; name: string }
+    userViewedMessage: { userId: string; messageId: string }
+    disonnectUser: { userId: string }
 }
 
 export type Effects = {
     userConnected: { userId: string; name: string }
     usersListUpdated: { userId: string; name: string }[]
-    newChatCreated: { userId: string; chatId: string; title: string }
+    newChatCreated: { authorId: string; chatId: string; title: string; users: string[] }
     userJoinedChat: { userId: string; chatId: string }
     newMessage: { userId: string; chatId: string; text: string }
-    userDisonnected: { userId: string; name: string }
+    userDisonnected: { userId: string }
+
+    updateMessageState: { messageId: string; viewedBy: string[] }
+    updateUsersList: { users: string[] }
 }
 
 export type EffectMessage<E extends keyof Effects> = {

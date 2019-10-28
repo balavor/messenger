@@ -1,9 +1,8 @@
-import { EventMessage, Effects } from './events'
+import { EventMessage } from './events'
 import { handler, Handler, EmitEffect, EventHandler } from './handler'
 import { State } from './state'
 
 export class Dispatcher {
-    
     handlers: EmitEffect[] = []
 
     state: State = new State()
