@@ -1,0 +1,47 @@
+PODS:
+  - InputBarAccessoryView (4.3.1):
+    - InputBarAccessoryView/Core (= 4.3.1)
+  - InputBarAccessoryView/Core (4.3.1)
+  - MessageKit (3.1.0):
+    - InputBarAccessoryView (~> 4.3.0)
+  - Result (5.0.0)
+  - Socket.IO-Client-Swift (15.2.0):
+    - Starscream (~> 3.1)
+  - Starscream (3.1.1)
+  - SwiftLint (0.36.0)
+
+DEPENDENCIES:
+  - "MessageKit (from `git@github.com:MessageKit/MessageKit.git`, branch `3.0.0-swift5`)"
+  - Result
+  - Socket.IO-Client-Swift (~> 15.2.0)
+  - SwiftLint
+
+SPEC REPOS:
+  trunk:
+    - InputBarAccessoryView
+    - Result
+    - Socket.IO-Client-Swift
+    - Starscream
+    - SwiftLint
+
+EXTERNAL SOURCES:
+  MessageKit:
+    :branch: 3.0.0-swift5
+    :git: "git@github.com:MessageKit/MessageKit.git"
+
+CHECKOUT OPTIONS:
+  MessageKit:
+    :commit: 9a7d4b414be9050bf477f52303df8943d0264ec0
+    :git: "git@github.com:MessageKit/MessageKit.git"
+
+SPEC CHECKSUMS:
+  InputBarAccessoryView: 58a348be7ea2736c7eec60e5c315511c2dbb39fd
+  MessageKit: 3beb578737a5aa2bba25cc27c7b6d6faa09af5a7
+  Result: ed341d2f236af425b803e690e9bd8fd0a0cb7c5a
+  Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+  SwiftLint: fc9859e4e1752340664851f667bb1898b9c90114
+
+PODFILE CHECKSUM: ab98cc55515ae682f397fd08888e9515dfe9e520
+
+COCOAPODS: 1.8.4

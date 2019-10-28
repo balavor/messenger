@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "incremental": true,
+        "target": "esnext",
+        "module": "commonjs",
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "sourceMap": true,
+        "lib": ["esnext"],
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "tsBuildInfoFile": "./dist/build.info"
+    }
+}

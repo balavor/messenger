@@ -1,0 +1,19 @@
+abstract_target 'common' do
+  
+  use_frameworks!
+  inhibit_all_warnings!
+  
+  pod 'Result'
+  
+  pod 'SwiftLint'
+
+  pod 'MessageKit',
+    :git => 'git@github.com:MessageKit/MessageKit.git',
+    :branch => '3.0.0-swift5'
+
+  pod 'Socket.IO-Client-Swift', '~> 15.2.0'
+  
+  target 'Messenger' do
+    platform :ios, '12.0'
+  end
+end

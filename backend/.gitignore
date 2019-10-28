@@ -1,0 +1,8 @@
+.DS_Store
+lerna-debug.log
+node_modules
+**/dist
+**/tsconfig.tsbuildinfo
+.project
+yarn-error.log
+.nyc_output
