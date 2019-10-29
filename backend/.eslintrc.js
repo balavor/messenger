@@ -1,24 +1,18 @@
 module.exports = {
     extends: [
-        'airbnb',
         'eslint:recommended',
-        'plugin:react/recommended',
         'plugin:@typescript-eslint/recommended',
         'prettier/@typescript-eslint',
         'plugin:prettier/recommended',
     ],
     parser: '@typescript-eslint/parser',
-    plugins: ['chai-friendly', '@typescript-eslint', 'prettier'],
+    plugins: ['@typescript-eslint', 'prettier', 'import'],
     settings: {
         'import/parsers': {
-            '@typescript-eslint/parser': ['.ts', '.tsx'],
+            '@typescript-eslint/parser': ['.ts'],
         },
         'import/resolver': {
             typescript: {},
-        },
-        react: {
-            pragma: 'React',
-            version: 'detect',
         },
     },
     parserOptions: {
@@ -54,21 +48,8 @@ module.exports = {
         'import/no-named-as-default': 2,
         'no-fallthrough': 2,
         radix: [2, 'as-needed'],
-        'react/destructuring-assignment': 0,
-        'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
         'no-plusplus': 1,
         'no-unused-expressions': 0,
         'no-shadow': 2,
-        'chai-friendly/no-unused-expressions': 2,
     },
-    overrides: [
-        {
-            files: ['*.tsx, *.jsx'],
-            plugins: ['react', 'react-hooks'],
-            rules: {
-                'react/prop-types': 0,
-                'react/destructuring-assignment': 2,
-            },
-        },
-    ],
 }
