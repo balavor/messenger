@@ -9,6 +9,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    
+    
+    let messageService = SocketIOService(onEffect: {})
+    messageService.emitEvent(.connectUser, with: ["userId" : "id",
+                                                  "name" : "me"] )
+    
+    let rootVM = WelcomeViewModel(startAction: messageService.connect)
+    let rootVC = window?.rootViewController as! WelcomeViewController
+    rootVC.viewModel = rootVM
     return true
   }
 

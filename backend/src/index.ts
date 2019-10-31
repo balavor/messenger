@@ -15,13 +15,17 @@ server.listen(3000, function() {
 })
 
 app.get('/health', function(_req, res) {
+    console.log('alive')
     res.send('Server is alive')
 })
 
 const dispatcher = new Dispatcher()
 
 io.on('connection', function(socket) {
+    console.log(`client connected`)
+
     socket.on('event', event => {
+        console.log(`event: ${JSON.stringify(event)}`)
         const eventMessage = event as EventMessage<keyof Handler>
         dispatcher.dispatch(eventMessage)
     })

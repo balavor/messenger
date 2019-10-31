@@ -7,6 +7,8 @@ class WelcomeViewController: UIViewController {
   @IBOutlet weak var textField: UITextField!
   @IBOutlet weak var startButton: UIButton!
   
+  var viewModel: WelcomeViewModel? = nil
+  
   override func viewDidLoad() {
     super.viewDidLoad()
   }
@@ -18,6 +20,6 @@ extension Actions {
     
   }
   @IBAction func onStartButtonPressed(_ sender: Any) {
-    present(UIViewController(), animated: true, completion: nil)
+    viewModel?.startAction()
   }
 }
