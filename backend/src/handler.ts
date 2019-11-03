@@ -16,10 +16,10 @@ export type Handler = {
 export function handler(state: State, emit: EmitEffect): Handler {
     return {
         connectUser: event => {
-            state.connectUser(event.userId, event.name)
+            const userId = state.connectUser(event.name)
             emit('userConnected', {
                 name: event.name,
-                userId: event.userId,
+                userId: userId,
             })
         },
         createChat: event => {

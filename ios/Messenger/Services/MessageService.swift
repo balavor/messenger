@@ -3,7 +3,17 @@
 import Foundation
 import SocketIO
 
-class MessageService {
+protocol MessageServiceProtocol {
+  func connect()
+  func connectUser(name: String)
+  func createChat(userId: User.ID, title: String)
+  func joinChat(userId: User.ID, chatId: String)
+  func messageSent(userId: User.ID, chatId: String, text: String)
+  func userViewedMessage(userId: User.ID, messageId: String)
+  func disconnectUser(userId: User.ID)
+}
+
+class MessageService: MessageServiceProtocol {
   
   private let socketIOService: SocketIOService
   
@@ -11,28 +21,37 @@ class MessageService {
     socketIOService = SocketIOService(onEffect: onEffect)
   }
   
-  func connectUser(userId: User.ID, name: String) {
-    socketIOService.emitEvent(MessageEvent.connectUser.rawValue, with: ["userId" : userId,
-                                                   "name" : name])
+  func connect() {
+    socketIOService.connect()
+  }
+  
+  func connectUser(name: String) {
+    socketIOService.emitEvent(MessageEvent.connectUser.rawValue,
+                              with: ["name" : name])
   }
   func createChat(userId: User.ID, title: String) {
-    socketIOService.emitEvent(MessageEvent.createChat.rawValue, with: ["userId" : userId,
-                                                  "title" : title])
+    socketIOService.emitEvent(MessageEvent.createChat.rawValue,
+                              with: ["userId" : userId.value,
+                                     "title" : title])
   }
   func joinChat(userId: User.ID, chatId: String) {
-    socketIOService.emitEvent(MessageEvent.joinChat.rawValue, with: ["userId" : userId,
-                                                "chatId" : chatId])
+    socketIOService.emitEvent(MessageEvent.joinChat.rawValue,
+                              with: ["userId" : userId.value,
+                                     "chatId" : chatId])
   }
   func messageSent(userId: User.ID, chatId: String, text: String) {
-    socketIOService.emitEvent(MessageEvent.messageSent.rawValue, with: ["userId" : userId,
-                                                   "chatId" : chatId,
-                                                   "text" : text])
+    socketIOService.emitEvent(MessageEvent.messageSent.rawValue,
+                              with: ["userId" : userId.value,
+                                     "chatId" : chatId,
+                                     "text" : text])
   }
   func userViewedMessage(userId: User.ID, messageId: String) {
-    socketIOService.emitEvent(MessageEvent.userViewedMessage.rawValue, with: ["userId" : userId,
-                                                         "messageId" : messageId])
+    socketIOService.emitEvent(MessageEvent.userViewedMessage.rawValue,
+                              with: ["userId" : userId.value,
+                                     "messageId" : messageId])
   }
   func disconnectUser(userId: User.ID) {
-    socketIOService.emitEvent(MessageEvent.disconnectUser.rawValue, with: ["userId" : userId])
+    socketIOService.emitEvent(MessageEvent.disconnectUser.rawValue,
+                              with: ["userId" : userId.value])
   }
 }

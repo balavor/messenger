@@ -1,5 +1,5 @@
 export type Events = {
-    connectUser: { userId: string; name: string }
+    connectUser: { name: string }
     createChat: { userId: string; title: string }
     joinChat: { userId: string; chatId: string }
     messageSent: { userId: string; chatId: string; text: string }

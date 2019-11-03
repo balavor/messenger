@@ -38,16 +38,21 @@ export class State {
         [id: string]: Message
     } = {}
 
-    connectUser(id: string, name: string) {
-        if (this.users[id] === undefined) {
-            this.users[id] = {
-                id,
+    connectUser(name: string) {
+        const existedUserId = Object.keys(this.users).find(key => this.users[key].name === name)
+        if (existedUserId === undefined) {
+            const userId = uuid()
+            this.users[userId] = {
+                id: userId,
                 chatIds: [],
                 isConnected: true,
                 name,
             }
+            return userId
+        } else {
+            this.users[existedUserId].isConnected = true
+            return existedUserId
         }
-        this.users[id].isConnected = true
     }
     disconnectUser(id: string) {
         if (this.users[id] === undefined) return

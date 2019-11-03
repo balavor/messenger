@@ -31,6 +31,7 @@ io.on('connection', function(socket) {
     })
 
     dispatcher.onEffect((type, effect) => {
+        console.log(`effect: ${JSON.stringify({ type, effect })}`)
         socket.emit('effect', { type, effect })
     })
 })

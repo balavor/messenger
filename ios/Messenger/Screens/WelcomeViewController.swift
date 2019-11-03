@@ -7,7 +7,7 @@ class WelcomeViewController: UIViewController {
   @IBOutlet weak var textField: UITextField!
   @IBOutlet weak var startButton: UIButton!
   
-  var viewModel: WelcomeViewModel? = nil
+  var viewModel: WelcomeViewModel?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -17,9 +17,10 @@ class WelcomeViewController: UIViewController {
 typealias Actions = WelcomeViewController
 extension Actions {
   @IBAction func onTextFieldEditing(_ sender: UITextField) {
-    
   }
+  
   @IBAction func onStartButtonPressed(_ sender: Any) {
-    viewModel?.startAction()
+    guard let text = textField.text else { return }
+    viewModel?.startAction(text)
   }
 }

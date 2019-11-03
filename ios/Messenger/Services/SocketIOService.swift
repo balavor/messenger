@@ -14,6 +14,9 @@ class SocketIOService {
     self.onEffect = onEffect
     manager.defaultSocket.on("effect") { [weak self] (items, emiterr) in
       self?.onEffect()
+      guard let items = items as? [[String: Any]] else { return }
+      _ = items.first?["type"]
+      _ = items.first?["effect"]
     }
   }
   

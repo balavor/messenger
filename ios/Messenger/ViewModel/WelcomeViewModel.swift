@@ -3,5 +3,5 @@
 import Foundation
 
 struct WelcomeViewModel {
-  let startAction: () -> ()
+  let startAction: (_ id: String) -> ()
 }
